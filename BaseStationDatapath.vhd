@@ -8,7 +8,7 @@ entity BaseStationDatapath is
     (
       clock            : in std_logic;
 
-      Rx               : in std_logic;
+      ChosenRx         : in std_logic;
       sample_increment : in std_logic;
       sample_reset     : in std_logic;
       bits_increment   : in std_logic;
@@ -17,8 +17,11 @@ entity BaseStationDatapath is
 
       sample_take      : out std_logic;
       sample_finish    : out std_logic;
+		
       bits_finish      : out std_logic;
-      bits_output      : out std_logic_vector(7 downto 0)
+      bits_output      : out std_logic_vector(7 downto 0);
+		
+		sample6 			  : out std_logic -- s6
     );
   end entity;
 
@@ -36,11 +39,11 @@ entity BaseStationDatapath is
             sample_count <= "0000";
           else
             if sample_increment = '1' then
-              if sample_count = "1111" then
-                sample_count <= "0000";
-              else
-                sample_count <= sample_count + 1;
-              end if;
+					if sample_count = "1111" then
+						sample_count <= "0000";
+					else
+						sample_count <= sample_count + 1;
+					end if;
             end if;
           end if;
         end if;
@@ -63,6 +66,7 @@ entity BaseStationDatapath is
           end if;
         end if;
       end process;
+		
 
       Comparator7: process(sample_count, bits_count)
       begin
@@ -87,13 +91,23 @@ entity BaseStationDatapath is
           sample_finish <= '1';
         end if;
       end process;
+		
+		Comparator6: process(sample_count)
+      begin
+        -- Default output
+        sample6 <= '0';
+        -- Conditional output
+        if sample_count = "0101" then
+          sample6 <= '1';
+        end if;
+      end process;
 
-      BitShifter: process(clock, bits_shift, bits)
+      BitShifter: process(clock, bits_shift, ChosenRx, bits)
       begin
         bits_output <= bits;
         if(rising_edge(clock)) then
           if bits_shift = '1' then
-            bits <= Rx & bits(7 downto 1);
+            bits <= ChosenRx & bits(7 downto 1);
           end if;
         end if;
       end process;
