@@ -8,7 +8,6 @@ entity BaseStationDatapath is
     (
       clock            : in std_logic := '0';
 
-<<<<<<< HEAD
       Rx               : in std_logic := '1';
       sample_increment : in std_logic := '0';
       sample_reset     : in std_logic := '0';
@@ -23,22 +22,6 @@ entity BaseStationDatapath is
       bits_output      : out std_logic_vector(7 downto 0) := (others => '0');
       display_output   : out std_logic_vector(7 downto 0) := (others => '1');
       display_select   : out std_logic_vector(3 downto 0) := (others => '0')
-=======
-      ChosenRx         : in std_logic;
-      sample_increment : in std_logic;
-      sample_reset     : in std_logic;
-      bits_increment   : in std_logic;
-      bits_reset       : in std_logic;
-      bits_shift       : in std_logic;
-
-      sample_take      : out std_logic;
-      sample_finish    : out std_logic;
-		
-      bits_finish      : out std_logic;
-      bits_output      : out std_logic_vector(7 downto 0);
-		
-		sample6 			  : out std_logic -- s6
->>>>>>> origin/master
     );
 end entity;
 
@@ -61,17 +44,7 @@ architecture rtl of BaseStationDatapath is
           if (sample_count = "1111") then
             sample_count <= "0000";
           else
-<<<<<<< HEAD
             sample_count <= sample_count + 1;
-=======
-            if sample_increment = '1' then
-					if sample_count = "1111" then
-						sample_count <= "0000";
-					else
-						sample_count <= sample_count + 1;
-					end if;
-            end if;
->>>>>>> origin/master
           end if;
         end if;
       end if;
@@ -92,14 +65,9 @@ architecture rtl of BaseStationDatapath is
             bits_count <= bits_count + 1;
           end if;
         end if;
-<<<<<<< HEAD
       end if;
     end if;
   end process;
-=======
-      end process;
-		
->>>>>>> origin/master
 
   Comparator7: process(sample_count, bits_count)
   begin
@@ -115,7 +83,6 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-<<<<<<< HEAD
   Comparator15: process(sample_count)
   begin
     -- Default behavior
@@ -173,34 +140,6 @@ architecture rtl of BaseStationDatapath is
             display_select_temp <= display_select_temp(2 downto 0) & '1';
           else
             display_select_temp <= display_select_temp(2 downto 0) & '0';
-=======
-      Comparator15: process(sample_count)
-      begin
-        -- Default output
-        sample_finish <= '0';
-        -- Conditional output
-        if sample_count = "1111" then
-          sample_finish <= '1';
-        end if;
-      end process;
-		
-		Comparator6: process(sample_count)
-      begin
-        -- Default output
-        sample6 <= '0';
-        -- Conditional output
-        if sample_count = "0101" then
-          sample6 <= '1';
-        end if;
-      end process;
-
-      BitShifter: process(clock, bits_shift, ChosenRx, bits)
-      begin
-        bits_output <= bits;
-        if(rising_edge(clock)) then
-          if bits_shift = '1' then
-            bits <= ChosenRx & bits(7 downto 1);
->>>>>>> origin/master
           end if;
         end if;
       end if;
