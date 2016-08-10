@@ -4,18 +4,19 @@ use ieee.std_logic_1164.all;
 entity BaseStationFSM is
   port
   (
-    clock            : in std_logic;
+    clock            : in std_logic := '0';
 
-    Rx               : in std_logic;
-    sample_take      : in std_logic;
-    sample_finish    : in std_logic;
-    bits_finish      : in std_logic;
+    Rx               : in std_logic := '0';
+    sample_take      : in std_logic := '0';
+    sample_finish    : in std_logic := '0';
+    bits_finish      : in std_logic := '0';
 
-    sample_increment : out std_logic;
-    sample_reset     : out std_logic;
-    bits_shift       : out std_logic;
-    bits_increment   : out std_logic;
-    bits_reset       : out std_logic
+    sample_increment : out std_logic := '0';
+    sample_reset     : out std_logic := '0';
+    bits_shift       : out std_logic := '0';
+    bits_increment   : out std_logic := '0';
+    bits_reset       : out std_logic := '0';
+    display_update   : out std_logic := '0'
   );
 end entity;
 
@@ -75,10 +76,10 @@ architecture rtl of BaseStationFSM is
 
         -- Stop state behavior
         when stop =>
-        if (sample_finish = '0') then
-          NextState <= stop;
-        else
+        if (sample_finish = '1') then
           NextState <= idle;
+        else
+          NextState <= stop;
 	      end if;
       end case;
     end process;
@@ -99,6 +100,7 @@ architecture rtl of BaseStationFSM is
       bits_shift <= '0';
       bits_increment <= '0';
       bits_reset <= '0';
+		display_update <= '0';
 
       -- State conditional outputs
       case CurrentState is
@@ -134,7 +136,9 @@ architecture rtl of BaseStationFSM is
 
         -- Stop state behavior
         when stop =>
-        if (sample_finish = '0') then
+        if (sample_finish = '1') then
+          display_update <= '1';
+        else
           sample_increment <= '1';
 	      end if;
       end case;
