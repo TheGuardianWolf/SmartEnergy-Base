@@ -33,8 +33,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "Rx" (rect 0 0 12 12)(font "Arial" ))
-		(text "Rx" (rect 21 43 33 55)(font "Arial" ))
+		(text "ChosenRx" (rect 0 0 43 12)(font "Arial" ))
+		(text "ChosenRx" (rect 21 43 64 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 1))
 	)
 	(port
@@ -120,6 +120,13 @@ applicable agreement for further details.
 		(text "display_select[3..0]" (rect 0 0 75 12)(font "Arial" ))
 		(text "display_select[3..0]" (rect 152 107 227 119)(font "Arial" ))
 		(line (pt 248 112)(pt 232 112)(line_width 3))
+	)
+	(port
+		(pt 240 96)
+		(output)
+		(text "sample6" (rect 0 0 33 12)(font "Arial" ))
+		(text "sample6" (rect 186 91 219 103)(font "Arial" ))
+		(line (pt 240 96)(pt 224 96)(line_width 1))
 	)
 	(drawing
 		(rectangle (rect 16 16 232 160)(line_width 1))

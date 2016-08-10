@@ -59,6 +59,13 @@ applicable agreement for further details.
 		(line (pt 0 96)(pt 16 96)(line_width 1))
 	)
 	(port
+		(pt 0 112)
+		(input)
+		(text "sample6" (rect 0 0 33 12)(font "Arial" ))
+		(text "sample6" (rect 21 107 54 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
 		(pt 232 32)
 		(output)
 		(text "sample_increment" (rect 0 0 73 12)(font "Arial" ))
@@ -96,8 +103,13 @@ applicable agreement for further details.
 	(port
 		(pt 232 112)
 		(output)
+<<<<<<< HEAD
 		(text "display_update" (rect 0 0 59 12)(font "Arial" ))
 		(text "display_update" (rect 152 107 211 119)(font "Arial" ))
+=======
+		(text "ChosenRx" (rect 0 0 43 12)(font "Arial" ))
+		(text "ChosenRx" (rect 168 107 211 119)(font "Arial" ))
+>>>>>>> origin/master
 		(line (pt 232 112)(pt 216 112)(line_width 1))
 	)
 	(drawing
