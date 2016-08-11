@@ -12,11 +12,11 @@ entity BaseStationDatapath is
       sample_increment : in std_logic := '0';
       sample_reset     : in std_logic := '0';
       bits_increment   : in std_logic := '0';
-      bits_reset       : in std_logic := '0';
       bits_shift       : in std_logic := '0';
+      bits_reset       : in std_logic := '0';
       vote_increment   : in std_logic := '0';
-      vote_reset       : in std_logic := '0';
       vote_shift       : in std_logic := '0';
+      vote_reset       : in std_logic := '0';
       display_update   : in std_logic := '0';
 
       sample_take      : out std_logic := '0'; -- Triggers on Sample 5
@@ -110,7 +110,7 @@ architecture rtl of BaseStationDatapath is
     -- Default behavior
     sample_take <= '0';
     -- Conditional behavior
-    if (sample_count = "0101") then
+    if (sample_count = "0011") then
       sample_take <= '1';
     end if;
   end process;
@@ -149,7 +149,7 @@ architecture rtl of BaseStationDatapath is
   begin
     if(rising_edge(clock)) then
       if vote_shift = '1' then
-        votes <= Rx & bits(2 downto 1);
+        votes <= Rx & votes(2 downto 1);
       end if;
     end if;
   end process;

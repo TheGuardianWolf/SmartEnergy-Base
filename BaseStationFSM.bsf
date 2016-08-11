@@ -89,15 +89,15 @@ applicable agreement for further details.
 	(port
 		(pt 232 64)
 		(output)
-		(text "bits_shift" (rect 0 0 35 12)(font "Arial" ))
-		(text "bits_shift" (rect 176 59 211 71)(font "Arial" ))
+		(text "bits_increment" (rect 0 0 57 12)(font "Arial" ))
+		(text "bits_increment" (rect 154 59 211 71)(font "Arial" ))
 		(line (pt 232 64)(pt 216 64)(line_width 1))
 	)
 	(port
 		(pt 232 80)
 		(output)
-		(text "bits_increment" (rect 0 0 57 12)(font "Arial" ))
-		(text "bits_increment" (rect 154 75 211 87)(font "Arial" ))
+		(text "bits_shift" (rect 0 0 35 12)(font "Arial" ))
+		(text "bits_shift" (rect 176 75 211 87)(font "Arial" ))
 		(line (pt 232 80)(pt 216 80)(line_width 1))
 	)
 	(port
@@ -110,15 +110,15 @@ applicable agreement for further details.
 	(port
 		(pt 232 112)
 		(output)
-		(text "vote_shift" (rect 0 0 40 12)(font "Arial" ))
-		(text "vote_shift" (rect 171 107 211 119)(font "Arial" ))
+		(text "vote_increment" (rect 0 0 62 12)(font "Arial" ))
+		(text "vote_increment" (rect 149 107 211 119)(font "Arial" ))
 		(line (pt 232 112)(pt 216 112)(line_width 1))
 	)
 	(port
 		(pt 232 128)
 		(output)
-		(text "vote_increment" (rect 0 0 62 12)(font "Arial" ))
-		(text "vote_increment" (rect 149 123 211 135)(font "Arial" ))
+		(text "vote_shift" (rect 0 0 40 12)(font "Arial" ))
+		(text "vote_shift" (rect 171 123 211 135)(font "Arial" ))
 		(line (pt 232 128)(pt 216 128)(line_width 1))
 	)
 	(port
@@ -134,6 +134,13 @@ applicable agreement for further details.
 		(text "display_update" (rect 0 0 59 12)(font "Arial" ))
 		(text "display_update" (rect 152 155 211 167)(font "Arial" ))
 		(line (pt 232 160)(pt 216 160)(line_width 1))
+	)
+	(port
+		(pt 232 176)
+		(output)
+		(text "state_indicator[2..0]" (rect 0 0 76 12)(font "Arial" ))
+		(text "state_indicator[2..0]" (rect 135 171 211 183)(font "Arial" ))
+		(line (pt 232 176)(pt 216 176)(line_width 3))
 	)
 	(drawing
 		(rectangle (rect 16 16 216 192)(line_width 1))

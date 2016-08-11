@@ -15,13 +15,14 @@ entity BaseStationFSM is
 
     sample_increment : out std_logic := '0';
     sample_reset     : out std_logic := '0';
-    bits_shift       : out std_logic := '0';
     bits_increment   : out std_logic := '0';
+    bits_shift       : out std_logic := '0';
     bits_reset       : out std_logic := '0';
-    vote_shift       : out std_logic := '0';
     vote_increment   : out std_logic := '0';
+    vote_shift       : out std_logic := '0';
     vote_reset       : out std_logic := '0';
-    display_update   : out std_logic := '0'
+    display_update   : out std_logic := '0';
+    state_indicator : out std_logic_vector(2 downto 0) := "000"
   );
 end entity;
 
@@ -30,7 +31,9 @@ architecture rtl of BaseStationFSM is
   (
     idle,
     start,
+    start_vote,
     data,
+    data_vote,
     stop
   );
   signal CurrentState, NextState : states:= idle;
@@ -67,20 +70,39 @@ architecture rtl of BaseStationFSM is
 
         -- Start state behavior
         when start =>
-        if (sample_take = '1' and vote_finish = '1' and majority_Rx = '0') then
-          NextState <= data;
-        elsif (sample_take = '1' and vote_finish = '1' and majority_Rx = '1') then
-          NextState <= idle;
+        if (sample_take = '1') then
+          NextState <= start_vote;
         else
           NextState <= start;
         end if;
 
+        -- Start Voting state behavior
+        when start_vote =>
+
+        if (vote_finish = '1' and majority_Rx = '0') then
+          NextState <= data;
+        elsif (vote_finish = '1') then
+          NextState <= idle;
+        else
+          NextState <= start_vote;
+        end if;
+
         -- Data state behavior
         when data =>
-        if (sample_finish = '1' and bits_finish = '1' and vote_finish = '1') then
-          NextState <= stop;
+        if (sample_finish = '1') then
+          NextState <= data_vote;
         else
           NextState <= data;
+        end if;
+
+        -- Data Voting state behavior
+        when data_vote =>
+        if (bits_finish = '1' and vote_finish = '1') then
+          NextState <= stop;
+        elsif (vote_finish = '1') then
+          NextState <= data;
+        else
+          NextState <= data_vote;
         end if;
 
         -- Stop state behavior
@@ -120,48 +142,71 @@ architecture rtl of BaseStationFSM is
       case CurrentState is
         -- Idle state behavior
         when idle =>
+        state_indicator <= "000";
         if (Rx = '0') then
           sample_reset <= '1';
           bits_reset <= '1';
-			 vote_reset <= '1';
+    			vote_reset <= '1';
         end if;
 
         -- Start state behavior
         when start =>
-        if (sample_take = '1' and vote_finish = '1' and majority_Rx = '0') then
-          sample_reset <= '1';
-          vote_reset <= '1';
-        elsif (sample_take = '1' and vote_finish = '1') then
-          sample_reset <= '1';
-          vote_reset <= '1';
-        elsif (sample_take = '1') then
+        state_indicator <= "001";
+        if (sample_take = '1') then
           vote_shift <= '1';
           vote_increment <= '1';
+          sample_increment <= '1';
         else
+          sample_increment <= '1';
+        end if;
+
+        -- Start Voting state behavior
+        when start_vote =>
+        state_indicator <= "010";
+        if (vote_finish = '1' and majority_Rx = '0') then
+          sample_reset <= '1';
+          vote_reset <= '1';
+        elsif (vote_finish = '1') then
+          sample_reset <= '1';
+          vote_reset <= '1';
+        else
+          vote_shift <= '1';
+          vote_increment <= '1';
           sample_increment <= '1';
         end if;
 
         -- Data state behavior
         when data =>
-        if (sample_finish = '1' and vote_finish = '1') then
-          if (bits_finish = '1') then
-            bits_shift <= '1';
-            vote_reset <= '1';
-          else
-            bits_shift <= '1';
-            bits_increment <= '1';
-            vote_reset <= '1';
-          end if;
-        elsif (sample_finish = '1') then
-          sample_increment <= '1';
+        state_indicator <= "011";
+        if (sample_finish = '1') then
           vote_shift <= '1';
           vote_increment <= '1';
+          sample_increment <= '1';
         else
+          sample_increment <= '1';
+        end if;
+
+        -- Data Voting state behavior
+        when data_vote =>
+        state_indicator <= "100";
+        if (bits_finish = '1' and vote_finish = '1') then
+          bits_shift <= '1';
+          sample_increment <= '1';
+          vote_reset <= '1';
+        elsif (vote_finish = '1') then
+          bits_shift <= '1';
+          bits_increment <= '1';
+          sample_increment <= '1';
+          vote_reset <= '1';
+        else
+          vote_shift <= '1';
+          vote_increment <= '1';
           sample_increment <= '1';
         end if;
 
         -- Stop state behavior
         when stop =>
+        state_indicator <= "101";
         if (sample_finish = '1') then
           display_update <= '1';
         else

@@ -61,15 +61,15 @@ applicable agreement for further details.
 	(port
 		(pt 0 112)
 		(input)
-		(text "bits_reset" (rect 0 0 38 12)(font "Arial" ))
-		(text "bits_reset" (rect 21 107 59 119)(font "Arial" ))
+		(text "bits_shift" (rect 0 0 35 12)(font "Arial" ))
+		(text "bits_shift" (rect 21 107 56 119)(font "Arial" ))
 		(line (pt 0 112)(pt 16 112)(line_width 1))
 	)
 	(port
 		(pt 0 128)
 		(input)
-		(text "bits_shift" (rect 0 0 35 12)(font "Arial" ))
-		(text "bits_shift" (rect 21 123 56 135)(font "Arial" ))
+		(text "bits_reset" (rect 0 0 38 12)(font "Arial" ))
+		(text "bits_reset" (rect 21 123 59 135)(font "Arial" ))
 		(line (pt 0 128)(pt 16 128)(line_width 1))
 	)
 	(port
@@ -82,15 +82,15 @@ applicable agreement for further details.
 	(port
 		(pt 0 160)
 		(input)
-		(text "vote_reset" (rect 0 0 43 12)(font "Arial" ))
-		(text "vote_reset" (rect 21 155 64 167)(font "Arial" ))
+		(text "vote_shift" (rect 0 0 40 12)(font "Arial" ))
+		(text "vote_shift" (rect 21 155 61 167)(font "Arial" ))
 		(line (pt 0 160)(pt 16 160)(line_width 1))
 	)
 	(port
 		(pt 0 176)
 		(input)
-		(text "vote_shift" (rect 0 0 40 12)(font "Arial" ))
-		(text "vote_shift" (rect 21 171 61 183)(font "Arial" ))
+		(text "vote_reset" (rect 0 0 43 12)(font "Arial" ))
+		(text "vote_reset" (rect 21 171 64 183)(font "Arial" ))
 		(line (pt 0 176)(pt 16 176)(line_width 1))
 	)
 	(port
