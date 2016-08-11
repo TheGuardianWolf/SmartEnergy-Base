@@ -10,12 +10,17 @@ entity BaseStationFSM is
     sample_take      : in std_logic := '0';
     sample_finish    : in std_logic := '0';
     bits_finish      : in std_logic := '0';
+    vote_finish      : in std_logic := '0';
+    majority_Rx      : in std_logic := '1';
 
     sample_increment : out std_logic := '0';
     sample_reset     : out std_logic := '0';
     bits_shift       : out std_logic := '0';
     bits_increment   : out std_logic := '0';
     bits_reset       : out std_logic := '0';
+    vote_shift       : out std_logic := '0';
+    vote_increment   : out std_logic := '0';
+    vote_reset       : out std_logic := '0';
     display_update   : out std_logic := '0'
   );
 end entity;
@@ -46,7 +51,9 @@ architecture rtl of BaseStationFSM is
       Rx,
       sample_take,
       sample_finish,
-      bits_finish
+      bits_finish,
+      vote_finish,
+      majority_Rx
     )
     begin
       case CurrentState is
@@ -60,15 +67,17 @@ architecture rtl of BaseStationFSM is
 
         -- Start state behavior
         when start =>
-        if (sample_take = '1') then
+        if (sample_take = '1' and vote_finish = '1' and majority_Rx = '0') then
           NextState <= data;
+        elsif (sample_take = '1' and vote_finish = '1' and majority_Rx = '1') then
+          NextState <= idle;
         else
           NextState <= start;
         end if;
 
         -- Data state behavior
         when data =>
-        if (sample_finish = '1' and bits_finish = '1') then
+        if (sample_finish = '1' and bits_finish = '1' and vote_finish = '1') then
           NextState <= stop;
         else
           NextState <= data;
@@ -91,7 +100,9 @@ architecture rtl of BaseStationFSM is
       Rx,
       sample_take,
       sample_finish,
-      bits_finish
+      bits_finish,
+      vote_finish,
+      majority_Rx
     )
     begin
       -- Default outputs
@@ -100,7 +111,10 @@ architecture rtl of BaseStationFSM is
       bits_shift <= '0';
       bits_increment <= '0';
       bits_reset <= '0';
-		display_update <= '0';
+      vote_shift <= '0';
+      vote_increment <= '0';
+      vote_reset <= '0';
+      display_update <= '0';
 
       -- State conditional outputs
       case CurrentState is
@@ -108,28 +122,40 @@ architecture rtl of BaseStationFSM is
         when idle =>
         if (Rx = '0') then
           sample_reset <= '1';
+          bits_reset <= '1';
+			 vote_reset <= '1';
         end if;
 
         -- Start state behavior
         when start =>
-        if (sample_take = '1') then
+        if (sample_take = '1' and vote_finish = '1' and majority_Rx = '0') then
           sample_reset <= '1';
-          bits_reset <= '1';
+          vote_reset <= '1';
+        elsif (sample_take = '1' and vote_finish = '1') then
+          sample_reset <= '1';
+          vote_reset <= '1';
+        elsif (sample_take = '1') then
+          vote_shift <= '1';
+          vote_increment <= '1';
         else
           sample_increment <= '1';
         end if;
 
         -- Data state behavior
         when data =>
-        if (sample_finish = '1') then
+        if (sample_finish = '1' and vote_finish = '1') then
           if (bits_finish = '1') then
-            sample_reset <= '1';
             bits_shift <= '1';
+            vote_reset <= '1';
           else
-            sample_reset <= '1';
             bits_shift <= '1';
             bits_increment <= '1';
+            vote_reset <= '1';
           end if;
+        elsif (sample_finish = '1') then
+          sample_increment <= '1';
+          vote_shift <= '1';
+          vote_increment <= '1';
         else
           sample_increment <= '1';
         end if;

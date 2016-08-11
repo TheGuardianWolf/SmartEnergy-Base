@@ -69,7 +69,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 1064 280 1257 296)
+	(rect 1064 280 1240 296)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "display_output[7..0]" (rect 90 0 187 12)(font "Arial" ))
 	(pt 0 8)
@@ -85,9 +85,9 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 1064 296 1269 312)
+	(rect 1064 296 1240 312)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "display_select[3..0]" (rect 90 0 199 14)(font "Arial" (font_size 8)))
+	(text "display_select[3..0]" (rect 90 0 186 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))

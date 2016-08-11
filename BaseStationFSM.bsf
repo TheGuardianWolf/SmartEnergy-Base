@@ -20,9 +20,9 @@ applicable agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 248 160)
+	(rect 16 16 248 224)
 	(text "BaseStationFSM" (rect 5 0 71 12)(font "Arial" ))
-	(text "inst" (rect 8 128 20 140)(font "Arial" ))
+	(text "inst" (rect 8 192 20 204)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -57,6 +57,20 @@ applicable agreement for further details.
 		(text "bits_finish" (rect 0 0 38 12)(font "Arial" ))
 		(text "bits_finish" (rect 21 91 59 103)(font "Arial" ))
 		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "vote_finish" (rect 0 0 43 12)(font "Arial" ))
+		(text "vote_finish" (rect 21 107 64 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "majority_Rx" (rect 0 0 50 12)(font "Arial" ))
+		(text "majority_Rx" (rect 21 123 71 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 1))
 	)
 	(port
 		(pt 232 32)
@@ -96,11 +110,32 @@ applicable agreement for further details.
 	(port
 		(pt 232 112)
 		(output)
-		(text "display_update" (rect 0 0 59 12)(font "Arial" ))
-		(text "display_update" (rect 152 107 211 119)(font "Arial" ))
+		(text "vote_shift" (rect 0 0 40 12)(font "Arial" ))
+		(text "vote_shift" (rect 171 107 211 119)(font "Arial" ))
 		(line (pt 232 112)(pt 216 112)(line_width 1))
 	)
+	(port
+		(pt 232 128)
+		(output)
+		(text "vote_increment" (rect 0 0 62 12)(font "Arial" ))
+		(text "vote_increment" (rect 149 123 211 135)(font "Arial" ))
+		(line (pt 232 128)(pt 216 128)(line_width 1))
+	)
+	(port
+		(pt 232 144)
+		(output)
+		(text "vote_reset" (rect 0 0 43 12)(font "Arial" ))
+		(text "vote_reset" (rect 168 139 211 151)(font "Arial" ))
+		(line (pt 232 144)(pt 216 144)(line_width 1))
+	)
+	(port
+		(pt 232 160)
+		(output)
+		(text "display_update" (rect 0 0 59 12)(font "Arial" ))
+		(text "display_update" (rect 152 155 211 167)(font "Arial" ))
+		(line (pt 232 160)(pt 216 160)(line_width 1))
+	)
 	(drawing
-		(rectangle (rect 16 16 216 128)(line_width 1))
+		(rectangle (rect 16 16 216 192)(line_width 1))
 	)
 )
