@@ -98,7 +98,7 @@ architecture rtl of BaseStationDatapath is
     -- Default behavior
     display_select_reset <= '0';
     -- Conditional behavior
-    if (bits = "00000000") then
+    if (bits = "11111111") then
       display_select_reset <= '1';
     end if;
   end process;
