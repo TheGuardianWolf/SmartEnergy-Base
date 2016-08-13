@@ -1,0 +1,39 @@
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+
+# Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# File: C:\Users\lichk\OneDrive\Work\University\2016\ELECTENG 209\SmartEnergy-Base\BaseStation.csv
+# Generated on: Sat Aug 13 12:37:14 2016
+
+# Note: The column header names should not be changed if you wish to import this .csv file into the Quartus II software.
+
+To,Direction,Location,Fitter Location,Reserved
+clock,Input,PIN_43,PIN_43,
+display_output[7],Output,PIN_14,PIN_28,
+display_output[6],Output,PIN_12,PIN_27,
+display_output[5],Output,PIN_11,PIN_29,
+display_output[4],Output,PIN_9,PIN_31,
+display_output[3],Output,PIN_8,PIN_8,
+display_output[2],Output,PIN_6,PIN_11,
+display_output[1],Output,PIN_5,PIN_21,
+display_output[0],Output,PIN_4,PIN_9,
+display_select[3],Output,PIN_19,PIN_12,
+display_select[2],Output,PIN_18,PIN_4,
+display_select[1],Output,PIN_17,PIN_5,
+display_select[0],Output,PIN_16,PIN_6,
+Rx,Input,PIN_24,PIN_41,
+TCK,Input,,PIN_32,
+TDI,Input,,PIN_7,
+TDO,Output,,PIN_38,
+TMS,Input,,PIN_13,
