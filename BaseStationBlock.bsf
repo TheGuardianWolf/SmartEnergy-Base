@@ -20,9 +20,9 @@ applicable agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 208 144)
+	(rect 16 16 208 112)
 	(text "BaseStationBlock" (rect 5 0 104 14)(font "Arial" (font_size 8)))
-	(text "inst" (rect 8 110 28 124)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 78 28 92)(font "Arial" (font_size 8)))
 	(port
 		(pt 0 32)
 		(input)
@@ -40,32 +40,18 @@ applicable agreement for further details.
 	(port
 		(pt 192 32)
 		(output)
-		(text "bits_output[7..0]" (rect 0 0 90 14)(font "Arial" (font_size 8)))
-		(text "bits_output[7..0]" (rect 81 27 171 41)(font "Arial" (font_size 8)))
+		(text "display_output[7..0]" (rect 0 0 110 14)(font "Arial" (font_size 8)))
+		(text "display_output[7..0]" (rect 61 27 171 41)(font "Arial" (font_size 8)))
 		(line (pt 192 32)(pt 176 32)(line_width 3))
 	)
 	(port
 		(pt 192 48)
 		(output)
-		(text "display_output[7..0]" (rect 0 0 110 14)(font "Arial" (font_size 8)))
-		(text "display_output[7..0]" (rect 61 43 171 57)(font "Arial" (font_size 8)))
+		(text "display_select[3..0]" (rect 0 0 109 14)(font "Arial" (font_size 8)))
+		(text "display_select[3..0]" (rect 62 43 171 57)(font "Arial" (font_size 8)))
 		(line (pt 192 48)(pt 176 48)(line_width 3))
 	)
-	(port
-		(pt 192 64)
-		(output)
-		(text "display_select[3..0]" (rect 0 0 109 14)(font "Arial" (font_size 8)))
-		(text "display_select[3..0]" (rect 62 59 171 73)(font "Arial" (font_size 8)))
-		(line (pt 192 64)(pt 176 64)(line_width 3))
-	)
-	(port
-		(pt 192 80)
-		(output)
-		(text "state_indicator[2..0]" (rect 0 0 112 14)(font "Arial" (font_size 8)))
-		(text "state_indicator[2..0]" (rect 59 75 171 89)(font "Arial" (font_size 8)))
-		(line (pt 192 80)(pt 176 80)(line_width 3))
-	)
 	(drawing
-		(rectangle (rect 16 16 176 112))
+		(rectangle (rect 16 16 176 80))
 	)
 )
