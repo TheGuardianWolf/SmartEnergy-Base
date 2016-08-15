@@ -14,25 +14,25 @@
 
 # Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 # File: C:\Users\lichk\OneDrive\Work\University\2016\ELECTENG 209\SmartEnergy-Base\BaseStation.csv
-# Generated on: Sat Aug 13 12:37:14 2016
+# Generated on: Tue Aug 16 05:39:03 2016
 
 # Note: The column header names should not be changed if you wish to import this .csv file into the Quartus II software.
 
 To,Direction,Location,Fitter Location,Reserved
 clock,Input,PIN_43,PIN_43,
-display_output[7],Output,PIN_14,PIN_28,
-display_output[6],Output,PIN_12,PIN_27,
-display_output[5],Output,PIN_11,PIN_29,
-display_output[4],Output,PIN_9,PIN_31,
+display_output[7],Output,PIN_14,PIN_14,
+display_output[6],Output,PIN_4,PIN_4,
+display_output[5],Output,PIN_5,PIN_5,
+display_output[4],Output,PIN_6,PIN_6,
 display_output[3],Output,PIN_8,PIN_8,
-display_output[2],Output,PIN_6,PIN_11,
-display_output[1],Output,PIN_5,PIN_21,
-display_output[0],Output,PIN_4,PIN_9,
-display_select[3],Output,PIN_19,PIN_12,
-display_select[2],Output,PIN_18,PIN_4,
-display_select[1],Output,PIN_17,PIN_5,
-display_select[0],Output,PIN_16,PIN_6,
-Rx,Input,PIN_24,PIN_41,
+display_output[2],Output,PIN_9,PIN_9,
+display_output[1],Output,PIN_11,PIN_11,
+display_output[0],Output,PIN_12,PIN_12,
+display_select[3],Output,PIN_19,PIN_19,
+display_select[2],Output,PIN_18,PIN_18,
+display_select[1],Output,PIN_17,PIN_17,
+display_select[0],Output,PIN_16,PIN_16,
+Rx,Input,PIN_24,PIN_24,
 TCK,Input,,PIN_32,
 TDI,Input,,PIN_7,
 TDO,Output,,PIN_38,
