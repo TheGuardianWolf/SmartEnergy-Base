@@ -115,12 +115,15 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-	HoldRegister : process(clock, bits, display_update)
+	HoldRegister : process(clock, bits, display_update, Rx)
 	begin
     -- Conditional behavior
     if(rising_edge(clock)) then
+		if Rx = '1' then
+			display_output <= "00100000";
+		end if;
       if (display_update = '1') then
-        display_output <= bits;
+        --display_output <= bits;
       end if;
     end if;
   end process;
@@ -129,10 +132,10 @@ architecture rtl of BaseStationDatapath is
   -- With integrated dual comparators to detect when to shift in '1'
   begin
     -- Default behavior
-    display_select <= display_select_temp;
+    display_select <= "1111";
     -- Conditional behavior
     if (display_select_reset = '1') then
-      display_select_temp <= "0000";
+      --display_select_temp <= "0000";
     else
       if (rising_edge(clock)) then
         if (display_update = '1') then
