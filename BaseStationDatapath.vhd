@@ -20,7 +20,7 @@ entity BaseStationDatapath is
       sample_finish    : out std_logic := '0';
       bits_finish      : out std_logic := '0';
       bits_output      : out std_logic_vector(7 downto 0) := (others => '0');
-      display_output   : out std_logic_vector(7 downto 0) := (others => '1');
+      display_output   : out std_logic_vector(7 downto 0) := (others => '0');
       display_select   : out std_logic_vector(3 downto 0) := (others => '0')
     );
 end entity;
