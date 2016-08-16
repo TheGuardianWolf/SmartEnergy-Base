@@ -40,8 +40,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 64)
 		(input)
-		(text "sample_take" (rect 0 0 50 12)(font "Arial" ))
-		(text "sample_take" (rect 21 59 71 71)(font "Arial" ))
+		(text "sample_start" (rect 0 0 51 12)(font "Arial" ))
+		(text "sample_start" (rect 21 59 72 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 1))
 	)
 	(port
@@ -134,13 +134,6 @@ applicable agreement for further details.
 		(text "display_update" (rect 0 0 59 12)(font "Arial" ))
 		(text "display_update" (rect 152 155 211 167)(font "Arial" ))
 		(line (pt 232 160)(pt 216 160)(line_width 1))
-	)
-	(port
-		(pt 232 176)
-		(output)
-		(text "state_indicator[2..0]" (rect 0 0 76 12)(font "Arial" ))
-		(text "state_indicator[2..0]" (rect 135 171 211 183)(font "Arial" ))
-		(line (pt 232 176)(pt 216 176)(line_width 3))
 	)
 	(drawing
 		(rectangle (rect 16 16 216 192)(line_width 1))

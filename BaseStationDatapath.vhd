@@ -19,12 +19,11 @@ entity BaseStationDatapath is
       vote_reset       : in std_logic := '0';
       display_update   : in std_logic := '0';
 
-      sample_take      : out std_logic := '0'; -- Triggers on Sample 5
+      sample_start      : out std_logic := '0'; -- Triggers on Sample 5
       sample_finish    : out std_logic := '0'; -- Triggers on Sample 14
       bits_finish      : out std_logic := '0'; -- Triggers after bit 7
       vote_finish      : out std_logic := '0';
       majority_Rx      : out std_logic := '1';
-      bits_output      : out std_logic_vector(7 downto 0) := (others => '0');
       display_output   : out std_logic_vector(7 downto 0) := (others => '1');
       display_select   : out std_logic_vector(3 downto 0) := (others => '0')
     );
@@ -108,10 +107,10 @@ architecture rtl of BaseStationDatapath is
   Comparator5: process(sample_count)
   begin
     -- Default behavior
-    sample_take <= '0';
+    sample_start <= '0';
     -- Conditional behavior
     if (sample_count = "0011") then
-      sample_take <= '1';
+      sample_start <= '1';
     end if;
   end process;
 
@@ -140,7 +139,7 @@ architecture rtl of BaseStationDatapath is
     -- Default behavior
     display_select_reset <= '0';
     -- Conditional behavior
-    if (bits = "11111111") then
+    if (bits = "00000000") then
       display_select_reset <= '1';
     end if;
   end process;
@@ -162,8 +161,6 @@ architecture rtl of BaseStationDatapath is
 
   BitShifter: process(clock, bits_shift, bits)
   begin
-    -- Default behavior
-    bits_output <= bits; -- Debug stream for bits
     -- Conditional behavior
     if(rising_edge(clock)) then
       if bits_shift = '1' then

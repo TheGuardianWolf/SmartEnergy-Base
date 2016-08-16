@@ -103,8 +103,8 @@ applicable agreement for further details.
 	(port
 		(pt 248 32)
 		(output)
-		(text "sample_take" (rect 0 0 50 12)(font "Arial" ))
-		(text "sample_take" (rect 177 27 227 39)(font "Arial" ))
+		(text "sample_start" (rect 0 0 51 12)(font "Arial" ))
+		(text "sample_start" (rect 176 27 227 39)(font "Arial" ))
 		(line (pt 248 32)(pt 232 32)(line_width 1))
 	)
 	(port
@@ -138,23 +138,16 @@ applicable agreement for further details.
 	(port
 		(pt 248 112)
 		(output)
-		(text "bits_output[7..0]" (rect 0 0 62 12)(font "Arial" ))
-		(text "bits_output[7..0]" (rect 165 107 227 119)(font "Arial" ))
+		(text "display_output[7..0]" (rect 0 0 76 12)(font "Arial" ))
+		(text "display_output[7..0]" (rect 151 107 227 119)(font "Arial" ))
 		(line (pt 248 112)(pt 232 112)(line_width 3))
 	)
 	(port
 		(pt 248 128)
 		(output)
-		(text "display_output[7..0]" (rect 0 0 76 12)(font "Arial" ))
-		(text "display_output[7..0]" (rect 151 123 227 135)(font "Arial" ))
-		(line (pt 248 128)(pt 232 128)(line_width 3))
-	)
-	(port
-		(pt 248 144)
-		(output)
 		(text "display_select[3..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "display_select[3..0]" (rect 152 139 227 151)(font "Arial" ))
-		(line (pt 248 144)(pt 232 144)(line_width 3))
+		(text "display_select[3..0]" (rect 152 123 227 135)(font "Arial" ))
+		(line (pt 248 128)(pt 232 128)(line_width 3))
 	)
 	(drawing
 		(rectangle (rect 16 16 232 224)(line_width 1))

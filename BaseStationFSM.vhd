@@ -7,7 +7,7 @@ entity BaseStationFSM is
     clock            : in std_logic := '0';
 
     Rx               : in std_logic := '0';
-    sample_take      : in std_logic := '0';
+    sample_start      : in std_logic := '0';
     sample_finish    : in std_logic := '0';
     bits_finish      : in std_logic := '0';
     vote_finish      : in std_logic := '0';
@@ -21,8 +21,7 @@ entity BaseStationFSM is
     vote_increment   : out std_logic := '0';
     vote_shift       : out std_logic := '0';
     vote_reset       : out std_logic := '0';
-    display_update   : out std_logic := '0';
-    state_indicator : out std_logic_vector(2 downto 0) := "000"
+    display_update   : out std_logic := '0'
   );
 end entity;
 
@@ -52,7 +51,7 @@ architecture rtl of BaseStationFSM is
     (
       CurrentState,
       Rx,
-      sample_take,
+      sample_start,
       sample_finish,
       bits_finish,
       vote_finish,
@@ -70,7 +69,7 @@ architecture rtl of BaseStationFSM is
 
         -- Start state behavior
         when start =>
-        if (sample_take = '1') then
+        if (sample_start = '1') then
           NextState <= start_vote;
         else
           NextState <= start;
@@ -120,7 +119,7 @@ architecture rtl of BaseStationFSM is
     (
       CurrentState,
       Rx,
-      sample_take,
+      sample_start,
       sample_finish,
       bits_finish,
       vote_finish,
@@ -142,7 +141,6 @@ architecture rtl of BaseStationFSM is
       case CurrentState is
         -- Idle state behavior
         when idle =>
-        state_indicator <= "000";
         if (Rx = '0') then
           sample_reset <= '1';
           bits_reset <= '1';
@@ -151,8 +149,7 @@ architecture rtl of BaseStationFSM is
 
         -- Start state behavior
         when start =>
-        state_indicator <= "001";
-        if (sample_take = '1') then
+        if (sample_start = '1') then
           vote_shift <= '1';
           vote_increment <= '1';
           sample_increment <= '1';
@@ -162,7 +159,6 @@ architecture rtl of BaseStationFSM is
 
         -- Start Voting state behavior
         when start_vote =>
-        state_indicator <= "010";
         if (vote_finish = '1' and majority_Rx = '0') then
           sample_reset <= '1';
           vote_reset <= '1';
@@ -177,7 +173,6 @@ architecture rtl of BaseStationFSM is
 
         -- Data state behavior
         when data =>
-        state_indicator <= "011";
         if (sample_finish = '1') then
           vote_shift <= '1';
           vote_increment <= '1';
@@ -188,7 +183,6 @@ architecture rtl of BaseStationFSM is
 
         -- Data Voting state behavior
         when data_vote =>
-        state_indicator <= "100";
         if (bits_finish = '1' and vote_finish = '1') then
           bits_shift <= '1';
           sample_increment <= '1';
@@ -206,7 +200,6 @@ architecture rtl of BaseStationFSM is
 
         -- Stop state behavior
         when stop =>
-        state_indicator <= "101";
         if (sample_finish = '1') then
           display_update <= '1';
         else
