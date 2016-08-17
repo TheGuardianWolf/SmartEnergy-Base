@@ -207,7 +207,7 @@ architecture rtl of BaseStationDatapath is
     sync_temp <= '0';
     sync <= sync_temp;
     -- Conditional behavior
-    if (bits(7 downto 0) = "00000000" and packet_invalid = '0') then
+    if (bits(7 downto 0) = "01101100" and packet_invalid = '0') then
       sync_temp <= '1';
     end if;
   end process;
