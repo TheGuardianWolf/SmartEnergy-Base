@@ -25,6 +25,7 @@ entity BaseStationDatapath is
       sample_5             : out std_logic := '0';
       sample_7             : out std_logic := '0';
       sample_12            : out std_logic := '0';
+      sample_15            : out std_logic := '0';
       bit_9                : out std_logic := '0';
       vote_3               : out std_logic := '0';
       majority_Rx          : out std_logic := '1';
@@ -105,26 +106,12 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  DCounter: process(clock)
-  begin
-    -- Count with clock rising edge
-    if(rising_edge(clock)) then
-        if (vote_increment = '1') then
-          if (vote_count = "11") then
-            vote_count <= "00";
-          else
-            vote_count <= vote_count + 1;
-          end if;
-        end if;
-      end if;
-  end process;
-
-  AutoSyncDelay: process(sample_count)
+  AutoSyncDelay: process(bits_count)
   begin
     -- Default behavior
     resync_delay <= '0';
     -- Conditional behavior
-    if (sample_count = "0001") then
+    if (bits_count = "0001") then
       resync_delay <= '1';
     end if;
   end process;
@@ -188,6 +175,16 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  Comparator15: process(sample_count)
+  begin
+    -- Default behavior
+    sample_15 <= '0';
+    -- Conditional behavior
+    if (sample_count = "1111") then
+      sample_15 <= '1';
+    end if;
+  end process;
+
   MajorityVote: process(votes, majority_vote)
   begin
     majority_vote <= (votes(0) and votes(1)) or (votes(0) and votes(2)) or (votes(2) and votes(1));
@@ -208,9 +205,9 @@ architecture rtl of BaseStationDatapath is
   begin
     -- Default behavior
     sync_temp <= '0';
-	 sync <= sync_temp;
+    sync <= sync_temp;
     -- Conditional behavior
-    if (bits(7 downto 0) = "00000000") then
+    if (bits(7 downto 0) = "00000000" and packet_invalid = '0') then
       sync_temp <= '1';
     end if;
   end process;
@@ -253,7 +250,7 @@ architecture rtl of BaseStationDatapath is
     if(rising_edge(clock)) then
       if (desync_temp = '1') then
         -- display_output <= "00000000";
-        display_output <= "01101100";
+        display_output <= "00000001";
       elsif (display_update = '1') then
         display_output <= bits(7 downto 0);
       end if;
@@ -269,6 +266,8 @@ architecture rtl of BaseStationDatapath is
     if (rising_edge(clock)) then
       if (display_select_reset = '1') then
         display_select_temp <= "0000";
+      elsif (desync_temp = '1') then
+        display_select_temp <= "1111";
       else
         if (display_update = '1') then
           if (display_select_temp = "0000" or display_select_temp = "1000") then

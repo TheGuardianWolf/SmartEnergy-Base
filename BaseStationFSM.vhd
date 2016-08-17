@@ -139,7 +139,8 @@ architecture rtl of BaseStationFSM is
       vote_3,
       majority_Rx,
   		validation_error,
-  		sync
+  		sync,
+      resync_delay
     )
     begin
       -- Default outputs
@@ -233,10 +234,10 @@ architecture rtl of BaseStationFSM is
           end if;
         else
           desync <= '1';
+          sample_increment <= '1';
           if (resync_delay = '0' and sample_15 = '1') then
             sample_increment <= '1';
             bits_increment <= '1';
-          elsif
           end if;
         end if;
       end case;
