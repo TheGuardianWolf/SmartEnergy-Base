@@ -30,15 +30,16 @@ entity BaseStationDatapath is
       majority_Rx          : out std_logic := '1';
       sync                 : out std_logic := '0';
       validation_error     : out std_logic := '0';
+      resync_delay         : out std_logic := '0';
       display_output       : out std_logic_vector(7 downto 0) := (others => '0');
       display_select       : out std_logic_vector(3 downto 0) := (others => '0')
-		  -- bits_debug           : out std_logic_vector(8 downto 0) := (others => '1')
+		  -- bits_debug        : out std_logic_vector(8 downto 0) := (others => '1')
     );
 end entity;
 
 architecture rtl of BaseStationDatapath is
   signal majority_vote       : std_logic := '1';
-  signal data_xor        : std_logic := '0';
+  signal data_xor            : std_logic := '0';
   signal packet_invalid      : std_logic := '0';
   signal desync_temp         : std_logic := '0';
   signal sync_temp           : std_logic := '0';
@@ -101,6 +102,30 @@ architecture rtl of BaseStationDatapath is
           end if;
         end if;
       end if;
+    end if;
+  end process;
+
+  DCounter: process(clock)
+  begin
+    -- Count with clock rising edge
+    if(rising_edge(clock)) then
+        if (vote_increment = '1') then
+          if (vote_count = "11") then
+            vote_count <= "00";
+          else
+            vote_count <= vote_count + 1;
+          end if;
+        end if;
+      end if;
+  end process;
+
+  AutoSyncDelay: process(sample_count)
+  begin
+    -- Default behavior
+    resync_delay <= '0';
+    -- Conditional behavior
+    if (sample_count = "0001") then
+      resync_delay <= '1';
     end if;
   end process;
 
@@ -227,7 +252,8 @@ architecture rtl of BaseStationDatapath is
     -- Conditional behavior
     if(rising_edge(clock)) then
       if (desync_temp = '1') then
-        display_output <= "00000000";
+        -- display_output <= "00000000";
+        display_output <= "01101100";
       elsif (display_update = '1') then
         display_output <= bits(7 downto 0);
       end if;

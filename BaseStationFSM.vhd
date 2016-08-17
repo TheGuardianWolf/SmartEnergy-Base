@@ -10,11 +10,13 @@ entity BaseStationFSM is
     sample_5             : in std_logic := '0';
     sample_7             : in std_logic := '0';
     sample_12            : in std_logic := '0';
+    sample_15            : in std_logic := '0';
     bit_9                : in std_logic := '0';
     vote_3               : in std_logic := '0';
     majority_Rx          : in std_logic := '1';
     sync                 : in std_logic := '0';
     validation_error     : in std_logic := '0';
+    resync_delay         : in std_logic := '0';
 
     sample_increment     : out std_logic := '0';
     sample_reset         : out std_logic := '0';
@@ -59,10 +61,12 @@ architecture rtl of BaseStationFSM is
       sample_5,
       sample_7,
       sample_12,
+      sample_15,
       bit_9,
       vote_3,
       majority_Rx,
-		  validation_error
+		  validation_error,
+      resync_delay
     )
     begin
       case CurrentState is
@@ -110,7 +114,15 @@ architecture rtl of BaseStationFSM is
 
         -- Validation state behavior
         when validate =>
+        if (validation_error = '0') then
           NextState <= idle;
+        else
+          if (resync_delay = '1') then
+            NextState <= idle;
+          else
+            NextState <= validate;
+          end if;
+        end if;
       end case;
     end process;
 
@@ -122,6 +134,7 @@ architecture rtl of BaseStationFSM is
       sample_5,
       sample_7,
       sample_12,
+      sample_15,
       bit_9,
       vote_3,
       majority_Rx,
@@ -220,6 +233,11 @@ architecture rtl of BaseStationFSM is
           end if;
         else
           desync <= '1';
+          if (resync_delay = '0' and sample_15 = '1') then
+            sample_increment <= '1';
+            bits_increment <= '1';
+          elsif
+          end if;
         end if;
       end case;
     end process;
