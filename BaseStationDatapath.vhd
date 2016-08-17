@@ -219,7 +219,7 @@ architecture rtl of BaseStationDatapath is
 	begin
     -- Conditional behavior
     if(rising_edge(clock)) then
-      if (desync_temp = '0') then
+      if (desync_temp = '1') then
         display_output <= "00000000";
       elsif (display_update = '1') then
         display_output <= bits(7 downto 0);
