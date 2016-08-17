@@ -53,7 +53,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 976 368 1152 384)
+	(rect 968 368 1144 384)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "display_output[7..0]" (rect 90 0 187 12)(font "Arial" ))
 	(pt 0 8)
@@ -69,7 +69,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 976 384 1152 400)
+	(rect 968 384 1144 400)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "display_select[3..0]" (rect 90 0 186 12)(font "Arial" ))
 	(pt 0 8)
@@ -125,8 +125,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 112)
 		(input)
-		(text "bit_8" (rect 0 0 23 12)(font "Arial" ))
-		(text "bit_8" (rect 21 107 44 119)(font "Arial" ))
+		(text "bit_9" (rect 0 0 23 12)(font "Arial" ))
+		(text "bit_9" (rect 21 107 44 119)(font "Arial" ))
 		(line (pt 0 112)(pt 16 112))
 	)
 	(port
@@ -357,8 +357,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 80)
 		(output)
-		(text "bit_8" (rect 0 0 23 12)(font "Arial" ))
-		(text "bit_8" (rect 216 75 235 87)(font "Arial" ))
+		(text "bit_9" (rect 0 0 23 12)(font "Arial" ))
+		(text "bit_9" (rect 216 75 235 87)(font "Arial" ))
 		(line (pt 256 80)(pt 240 80))
 	)
 	(port
@@ -480,22 +480,12 @@ applicable agreement for further details.
 	(pt 1176 328)
 )
 (connector
-	(pt 976 376)
-	(pt 968 376)
-	(bus)
-)
-(connector
 	(pt 968 344)
 	(pt 1176 344)
 )
 (connector
 	(pt 1176 360)
 	(pt 968 360)
-)
-(connector
-	(pt 976 392)
-	(pt 968 392)
-	(bus)
 )
 (connector
 	(text "1" (rect 698 264 705 278)(font "Arial" (font_size 8)))

@@ -138,8 +138,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 80)
 		(output)
-		(text "bit_8" (rect 0 0 18 12)(font "Arial" ))
-		(text "bit_8" (rect 217 75 235 87)(font "Arial" ))
+		(text "bit_9" (rect 0 0 18 12)(font "Arial" ))
+		(text "bit_9" (rect 217 75 235 87)(font "Arial" ))
 		(line (pt 256 80)(pt 240 80)(line_width 1))
 	)
 	(port

@@ -10,7 +10,7 @@ entity BaseStationFSM is
     sample_5             : in std_logic := '0';
     sample_7             : in std_logic := '0';
     sample_12            : in std_logic := '0';
-    bit_8                : in std_logic := '0';
+    bit_9                : in std_logic := '0';
     vote_3               : in std_logic := '0';
     majority_Rx          : in std_logic := '1';
     sync                 : in std_logic := '0';
@@ -57,8 +57,9 @@ architecture rtl of BaseStationFSM is
       CurrentState,
       Rx,
       sample_5,
+      sample_7,
       sample_12,
-      bit_8,
+      bit_9,
       vote_3,
       majority_Rx,
 		  validation_error
@@ -99,7 +100,7 @@ architecture rtl of BaseStationFSM is
 
         -- Data Voting state behavior
         when data_vote =>
-        if (bit_8 = '1' and vote_3 = '1') then
+        if (bit_9 = '1' and vote_3 = '1') then
           NextState <= validate;
         elsif (vote_3 = '1') then
           NextState <= data;
@@ -109,15 +110,7 @@ architecture rtl of BaseStationFSM is
 
         -- Validation state behavior
         when validate =>
-        if (validation_error = '0') then
           NextState <= idle;
-        else
-          if (sample_12 = '1') then
-            NextState <= idle;
-          else
-            NextState <= validate;
-          end if;
-        end if;
       end case;
     end process;
 
@@ -129,7 +122,7 @@ architecture rtl of BaseStationFSM is
       sample_5,
       sample_7,
       sample_12,
-      bit_8,
+      bit_9,
       vote_3,
       majority_Rx,
   		validation_error,
@@ -202,7 +195,7 @@ architecture rtl of BaseStationFSM is
         -- Data Voting state behavior
         when data_vote =>
         -- state <= "100";
-        if (bit_8 = '1' and vote_3 = '1') then
+        if (bit_9 = '1' and vote_3 = '1') then
           bits_shift <= '1';
           sample_increment <= '1';
           vote_reset <= '1';
@@ -227,9 +220,6 @@ architecture rtl of BaseStationFSM is
           end if;
         else
           desync <= '1';
-          if (sample_12 = '0') then
-            sample_increment <= '1';
-          end if;
         end if;
       end case;
     end process;
