@@ -170,13 +170,6 @@ applicable agreement for further details.
 		(text "desync" (rect 198 187 227 199)(font "Arial" ))
 		(line (pt 248 192)(pt 232 192)(line_width 1))
 	)
-	(port
-		(pt 248 208)
-		(output)
-		(text "state[2..0]" (rect 0 0 38 12)(font "Arial" ))
-		(text "state[2..0]" (rect 189 203 227 215)(font "Arial" ))
-		(line (pt 248 208)(pt 232 208)(line_width 3))
-	)
 	(drawing
 		(rectangle (rect 16 16 232 224)(line_width 1))
 	)

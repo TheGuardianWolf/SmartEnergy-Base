@@ -184,13 +184,6 @@ applicable agreement for further details.
 		(text "display_select[3..0]" (rect 160 171 235 183)(font "Arial" ))
 		(line (pt 256 176)(pt 240 176)(line_width 3))
 	)
-	(port
-		(pt 256 192)
-		(output)
-		(text "bits_debug[8..0]" (rect 0 0 62 12)(font "Arial" ))
-		(text "bits_debug[8..0]" (rect 173 187 235 199)(font "Arial" ))
-		(line (pt 256 192)(pt 240 192)(line_width 3))
-	)
 	(drawing
 		(rectangle (rect 16 16 240 256)(line_width 1))
 	)

@@ -26,7 +26,7 @@ entity BaseStationFSM is
     vote_reset           : out std_logic := '0';
     display_update       : out std_logic := '0';
     display_select_reset : out std_logic := '0';
-    desync               : out std_logic := '0';
+    desync               : out std_logic := '0'
   );
 end entity;
 

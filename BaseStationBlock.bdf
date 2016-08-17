@@ -34,7 +34,6 @@ applicable agreement for further details.
 		(line (pt 117 12)(pt 121 8))
 	)
 	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 352 256 400 272))
 )
 (pin
 	(input)
@@ -51,7 +50,6 @@ applicable agreement for further details.
 		(line (pt 117 12)(pt 121 8))
 	)
 	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 352 272 400 288))
 )
 (pin
 	(output)
@@ -68,30 +66,12 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1152 384 1200 400))
 )
 (pin
 	(output)
 	(rect 976 384 1152 400)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "display_select[3..0]" (rect 90 0 186 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect 1152 400 1200 416))
-)
-(pin
-	(output)
-	(rect 976 400 1152 416)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "bits_debug[8..0]" (rect 90 0 169 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -253,13 +233,6 @@ applicable agreement for further details.
 		(text "desync" (rect 0 0 36 12)(font "Arial" ))
 		(text "desync" (rect 197 187 227 199)(font "Arial" ))
 		(line (pt 248 192)(pt 232 192))
-	)
-	(port
-		(pt 248 208)
-		(output)
-		(text "state[2..0]" (rect 0 0 50 12)(font "Arial" ))
-		(text "state[2..0]" (rect 185 203 227 215)(font "Arial" ))
-		(line (pt 248 208)(pt 232 208)(line_width 3))
 	)
 	(drawing
 		(rectangle (rect 16 16 232 224))
@@ -430,13 +403,6 @@ applicable agreement for further details.
 		(text "display_select[3..0]" (rect 154 171 235 183)(font "Arial" ))
 		(line (pt 256 176)(pt 240 176)(line_width 3))
 	)
-	(port
-		(pt 256 192)
-		(output)
-		(text "bits_debug[8..0]" (rect 0 0 79 12)(font "Arial" ))
-		(text "bits_debug[8..0]" (rect 169 187 235 199)(font "Arial" ))
-		(line (pt 256 192)(pt 240 192)(line_width 3))
-	)
 	(drawing
 		(rectangle (rect 16 16 240 256))
 	)
@@ -488,11 +454,6 @@ applicable agreement for further details.
 (connector
 	(pt 616 264)
 	(pt 576 264)
-)
-(connector
-	(pt 1424 392)
-	(pt 1504 392)
-	(bus)
 )
 (connector
 	(pt 968 248)
@@ -645,11 +606,6 @@ applicable agreement for further details.
 	(text "11" (rect 1436 360 1450 374)(font "Arial" (font_size 8)))
 	(pt 1424 376)
 	(pt 1448 376)
-)
-(connector
-	(pt 968 408)
-	(pt 976 408)
-	(bus)
 )
 (junction (pt 600 248))
 (junction (pt 616 264))

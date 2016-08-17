@@ -30,8 +30,8 @@ entity BaseStationDatapath is
       sync                 : out std_logic := '0';
       validation_error     : out std_logic := '0';
       display_output       : out std_logic_vector(7 downto 0) := (others => '0');
-      display_select       : out std_logic_vector(3 downto 0) := (others => '0');
-		bits_debug             : out std_logic_vector(8 downto 0) := (others => '1')
+      display_select       : out std_logic_vector(3 downto 0) := (others => '0')
+		  -- bits_debug           : out std_logic_vector(8 downto 0) := (others => '1')
     );
 end entity;
 
@@ -207,7 +207,7 @@ architecture rtl of BaseStationDatapath is
   BitShifter: process(clock, bits_shift, bits)
   begin
     -- Conditional behavior
-	 bits_debug <= bits;
+	--  bits_debug <= bits;
     if(rising_edge(clock)) then
       if bits_shift = '1' then
         bits <= majority_vote & bits(8 downto 1);
