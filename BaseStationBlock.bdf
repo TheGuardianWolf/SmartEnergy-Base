@@ -111,8 +111,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 80)
 		(input)
-		(text "sample_7" (rect 0 0 47 12)(font "Arial" ))
-		(text "sample_7" (rect 21 75 68 87)(font "Arial" ))
+		(text "sample_8" (rect 0 0 47 12)(font "Arial" ))
+		(text "sample_8" (rect 21 75 68 87)(font "Arial" ))
 		(line (pt 0 80)(pt 16 80))
 	)
 	(port
@@ -357,8 +357,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 48)
 		(output)
-		(text "sample_7" (rect 0 0 47 12)(font "Arial" ))
-		(text "sample_7" (rect 196 43 235 55)(font "Arial" ))
+		(text "sample_8" (rect 0 0 47 12)(font "Arial" ))
+		(text "sample_8" (rect 196 43 235 55)(font "Arial" ))
 		(line (pt 256 48)(pt 240 48))
 	)
 	(port
@@ -630,13 +630,8 @@ applicable agreement for further details.
 	(pt 968 376)
 )
 (connector
+	(pt 1176 392)
 	(pt 968 392)
-	(pt 1176 392)
-)
-(connector
-	(pt 1176 392)
-	(pt 1176 400)
 )
 (junction (pt 600 248))
 (junction (pt 616 264))
-(junction (pt 1176 392))
