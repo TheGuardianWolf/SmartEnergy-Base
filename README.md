@@ -13,4 +13,4 @@ https://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter#Break_
 - Testing... always testing...
 
 # Known Bugs
-- If display sync packet is not coded to be "000000000", it does not sync correctly.
+- If display sync packet is not coded to be "000000000", it does not (visually) sync correctly.
