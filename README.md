@@ -10,3 +10,6 @@ http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html</s>
 https://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter#Break_condition</s>
 - <s>Create timedelay such that the device can automatically resync if desync detected.</s>
 - Testing... always testing...
+
+# Known Bugs
+- If display sync packet is not coded to be "000000000", it does not sync correctly.
