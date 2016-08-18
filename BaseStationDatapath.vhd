@@ -201,7 +201,7 @@ architecture rtl of BaseStationDatapath is
     validation_error <= packet_invalid;
   end process;
 
-  SyncDetect: process(bits, sync_temp)
+  SyncDetect: process(bits, sync_temp, packet_invalid)
   begin
     -- Default behavior
     sync_temp <= '0';

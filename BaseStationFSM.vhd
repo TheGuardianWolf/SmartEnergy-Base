@@ -90,6 +90,8 @@ architecture rtl of BaseStationFSM is
         when start_vote =>
         if (vote_3 = '1' and majority_Rx = '0') then
           NextState <= data;
+        elsif (vote_3 = '1') then
+          NextState <= idle;
         else
           NextState <= start_vote;
         end if;
@@ -188,7 +190,6 @@ architecture rtl of BaseStationFSM is
           vote_reset <= '1';
         elsif (vote_3 = '1') then
           desync <= '1';
-          vote_reset <= '1';
         else
           vote_shift <= '1';
           vote_increment <= '1';
