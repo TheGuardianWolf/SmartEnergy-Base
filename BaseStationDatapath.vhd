@@ -23,7 +23,7 @@ entity BaseStationDatapath is
       desync               : in std_logic := '0';
 
       sample_5             : out std_logic := '0';
-      sample_7             : out std_logic := '0';
+      sample_8             : out std_logic := '0';
       sample_12            : out std_logic := '0';
       sample_15            : out std_logic := '0';
       bit_9                : out std_logic := '0';
@@ -146,13 +146,13 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  Comparator7: process(sample_count)
+  Comparator8: process(sample_count)
   begin
     -- Default behavior
-    sample_7 <= '0';
+    sample_8 <= '0';
     -- Conditional behavior
-    if (sample_count = "0111") then
-      sample_7 <= '1';
+    if (sample_count = "1000") then
+      sample_8 <= '1';
     end if;
   end process;
 

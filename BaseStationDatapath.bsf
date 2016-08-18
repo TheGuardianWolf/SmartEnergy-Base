@@ -124,8 +124,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 48)
 		(output)
-		(text "sample_7" (rect 0 0 38 12)(font "Arial" ))
-		(text "sample_7" (rect 197 43 235 55)(font "Arial" ))
+		(text "sample_8" (rect 0 0 38 12)(font "Arial" ))
+		(text "sample_8" (rect 197 43 235 55)(font "Arial" ))
 		(line (pt 256 48)(pt 240 48)(line_width 1))
 	)
 	(port

@@ -8,7 +8,7 @@ entity BaseStationFSM is
 
     Rx                   : in std_logic := '0';
     sample_5             : in std_logic := '0';
-    sample_7             : in std_logic := '0';
+    sample_8             : in std_logic := '0';
     sample_12            : in std_logic := '0';
     sample_15            : in std_logic := '0';
     bit_9                : in std_logic := '0';
@@ -59,7 +59,7 @@ architecture rtl of BaseStationFSM is
       CurrentState,
       Rx,
       sample_5,
-      sample_7,
+      sample_8,
       sample_12,
       sample_15,
       bit_9,
@@ -134,7 +134,7 @@ architecture rtl of BaseStationFSM is
       CurrentState,
       Rx,
       sample_5,
-      sample_7,
+      sample_8,
       sample_12,
       sample_15,
       bit_9,
@@ -183,13 +183,14 @@ architecture rtl of BaseStationFSM is
         -- Start Voting state behavior
         when start_vote =>
         -- state <= "010";
-        if (sample_7 = '1') then
+        if (sample_8 = '1') then
           sample_reset <= '1';
         end if;
         if (vote_3 = '1' and majority_Rx = '0') then
           vote_reset <= '1';
         elsif (vote_3 = '1') then
           desync <= '1';
+          sample_increment <= '1';
         else
           vote_shift <= '1';
           vote_increment <= '1';
