@@ -52,6 +52,8 @@ architecture rtl of BaseStationDatapath is
   signal bits                : std_logic_vector(9 downto 0) := (others => '0');
   begin
 
+  -- Samples counter:
+  -- Counter has limit at "1111" and a reset that can be triggered by FSM.
   SCounter: process(clock, sample_reset, sample_increment)
   begin
     -- Count with clock rising edge
@@ -70,6 +72,8 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Bit counter:
+  -- Counter has limit at "1001" and a reset that can be triggered by FSM.
   BCounter: process(clock, bits_reset, bits_increment)
   begin
     -- Count with clock rising edge
@@ -88,6 +92,8 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Vote counter:
+  -- Counter has limit at "11" and a reset that can be triggered by FSM.
   VCounter: process(clock, vote_reset, vote_increment)
   begin
     -- Count with clock rising edge
@@ -106,6 +112,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Trigger to stop the FSM delay when data validation fails.
   AutoSyncDelay: process(bits_count)
   begin
     -- Default behavior
@@ -116,6 +123,9 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Validates packets by comparing the odd parity generated from combinational
+  -- circuit with the parity sent over UART, and compares the stop bit logic to
+  -- a logic high signal. If either checks fail, the packet is invalid.
   PacketValidator: process(bits, data_xor, sample_count, packet_invalid)
   begin
     -- Default behavior
@@ -127,6 +137,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- General purpose comparator for decimal 3.
   Comparator3: process(vote_count)
   begin
     -- Default behavior
@@ -137,6 +148,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- General purpose comparator for decimal 5.
   Comparator5: process(sample_count)
   begin
     -- Default behavior
@@ -147,6 +159,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- General purpose comparator for decimal 7.
   Comparator7: process(sample_count)
   begin
     -- Default behavior
@@ -157,6 +170,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- General purpose comparator for decimal 9.
   Comparator9: process(bits_count)
   begin
     -- Default behavior
@@ -166,6 +180,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- General purpose comparator for decimal 13.
   Comparator13: process(sample_count)
   begin
     -- Default behavior
@@ -176,6 +191,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- General purpose comparator for decimal 15.
   Comparator15: process(sample_count)
   begin
     -- Default behavior
@@ -186,17 +202,22 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Majority vote combinational circuit to decide whether the bit is a 1 or 0.
   MajorityVote: process(votes, majority_vote)
   begin
     majority_vote <= (votes(0) and votes(1)) or (votes(0) and votes(2)) or (votes(2) and votes(1));
     majority_Rx <= majority_vote;
   end process;
 
+  -- Generates a parity bit from the recieved data bits, intended to be compared
+  -- with the parity bit sent over UART. Generates an odd parity bit.
   ParityGenerator: process(bits)
   begin
     data_xor <= xor_reduce(bits(7 downto 0));
   end process;
 
+  -- Detects if a sync packet was sent. If packet is invalid, this is
+  -- disregarded.
   SyncDetect: process(bits, sync_temp, packet_invalid)
   begin
     -- Default behavior
@@ -208,6 +229,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Stores the voting samples.
   VoteRegister: process(clock, vote_shift)
   begin
     if(rising_edge(clock)) then
@@ -217,6 +239,8 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Stores the desync flag. Required to prevent an inferred latch from a
+  -- constant assertion from FSM otherwise.
   SyncRegister: process(clock, desync, sync_temp)
   begin
     if(rising_edge(clock)) then
@@ -229,6 +253,8 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Shift register stores the bits coming over UART, after being decided by the
+  -- majority voter.
   BitShifter: process(clock, bits_shift, bits)
   begin
     -- Conditional behavior
@@ -240,6 +266,9 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Buffer for the display as we don't always want to display what we have
+  -- recieved in case of desync. If desync is detected by the buffer, then we
+  -- display "-" on the enabled displays.
 	DisplayBuffer : process(clock, bits, display_update)
 	begin
     -- Conditional behavior
@@ -253,6 +282,11 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
+  -- Cyclic shift register that keeps a '1' stored somewhere in its bits to
+  -- enable at least 1 display in normal operation. When reset, the pointer is
+  -- not placed on a display so the next incoming packet will be displayed on
+  -- the first display. Each packet moves the pointer one to the left. When
+  -- desync is detected, all displays are active to display the "-" character.
   DisplayShifter : process(clock, display_select_reset, display_select_temp, display_update)
   -- With integrated dual comparators to detect when to shift in '1'
   begin

@@ -209,7 +209,7 @@ architecture rtl of BaseStationFSM is
 					sample_increment <= '1';
 				end if;
 
-				-- Start Voting state behavior
+				-- Start Voting state behavior:
         -- The start vote state will decide whether the start bit is valid or
         -- is caused by noise. In any case, if sample_7 is reached, this causes
         -- a sample reset to prepare for the data state. The state waits for
@@ -233,7 +233,7 @@ architecture rtl of BaseStationFSM is
 					sample_increment <= '1';
 				end if;
 
-				-- Data state behavior
+				-- Data state behavior:
         -- This state doesn't do much until sample_13 is recieved. This signal
         -- begins the voting process, as data will go to the data_vote state.
         -- In all cases, the sample count is incremented.
@@ -247,7 +247,10 @@ architecture rtl of BaseStationFSM is
 					sample_increment <= '1';
 				end if;
 
-				-- Data Voting state behavior
+				-- Data Voting state behavior:
+				-- The data voting state will tell the datapath when the votes are ready
+				-- to be accounted for in the bits storage. It also handles the
+				-- transition once all ten bits are accounted for.
 				when data_vote =>
 				-- state <= "100";
 				if (bit_9 = '1' and vote_3 = '1') then
@@ -265,7 +268,13 @@ architecture rtl of BaseStationFSM is
 					sample_increment <= '1';
 				end if;
 
-				-- Validate state behavior
+				-- Validate state behavior:
+				-- The validation state handles the display updates should there be no
+				-- validation error reported from the datapath checks. If a sync packet
+				-- is detected, then a display select reset signal is asserted. This
+				-- state also asserts a desync if a validation_error occurs and delays
+				-- state transition in an attempt to automatically sync with the UART
+				-- frame.
 				when validate =>
 				-- state <= "101";
 				if (validation_error = '0') then
