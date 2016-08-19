@@ -238,7 +238,6 @@ architecture rtl of BaseStationFSM is
           desync <= '1';
           sample_increment <= '1';
           if (resync_delay = '0' and sample_15 = '1') then
-            sample_increment <= '1';
             bits_increment <= '1';
           end if;
         end if;
