@@ -32,7 +32,8 @@ entity BaseStationFSM is
 		vote_reset					 : out std_logic := '0';
 		display_update			 : out std_logic := '0';
 		display_select_reset : out std_logic := '0';
-		desync							 : out std_logic := '0'
+		desync							 : out std_logic := '0';
+		state                : out std_logic_vector(2 downto 0) := "000"
 	);
 end entity;
 
@@ -181,6 +182,7 @@ architecture rtl of BaseStationFSM is
 			display_update <= '0';
 			display_select_reset <= '0';
 			desync <= '0';
+			state <= "000";
 
 			-- State conditional outputs
 			case CurrentState is
@@ -188,7 +190,7 @@ architecture rtl of BaseStationFSM is
         -- When a logic low is detected on incoming Rx, the state starts the
         -- read process by resetting all counters to 0.
 				when idle =>
-				-- state <= "000";
+				state <= "000";
 				if (Rx = '0') then
 					sample_reset <= '1';
 					bits_reset <= '1';
@@ -200,7 +202,7 @@ architecture rtl of BaseStationFSM is
         -- begins the voting process, as start will go to the start_vote state.
         -- In all cases, the sample count is incremented.
 				when start =>
-				-- state <= "001";
+				state <= "001";
 				if (sample_5 = '1') then
 					sample_increment <= '1';
 					vote_shift <= '1';
@@ -218,7 +220,7 @@ architecture rtl of BaseStationFSM is
         -- vote shifting and counter incrementing occurs, and sample is also
         -- incremented. If successful, vote counter will be reset.
 				when start_vote =>
-				-- state <= "010";
+				state <= "010";
 				if (sample_7 = '1') then
 					sample_reset <= '1';
 				end if;
@@ -238,7 +240,7 @@ architecture rtl of BaseStationFSM is
         -- begins the voting process, as data will go to the data_vote state.
         -- In all cases, the sample count is incremented.
 				when data =>
-				-- state <= "011";
+				state <= "011";
 				if (sample_13 = '1') then
 					sample_increment <= '1';
 					vote_shift <= '1';
@@ -249,7 +251,7 @@ architecture rtl of BaseStationFSM is
 
 				-- Data Voting state behavior
 				when data_vote =>
-				-- state <= "100";
+				state <= "100";
 				if (bit_9 = '1' and vote_3 = '1') then
 					bits_shift <= '1';
 					sample_increment <= '1';
@@ -267,7 +269,7 @@ architecture rtl of BaseStationFSM is
 
 				-- Validate state behavior
 				when validate =>
-				-- state <= "101";
+				state <= "101";
 				if (validation_error = '0') then
 					display_update <= '1';
 					if (sync = '1') then

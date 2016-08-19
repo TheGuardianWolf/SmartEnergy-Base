@@ -36,9 +36,9 @@
 # -------------------------------------------------------------------------- #
 
 
-set_global_assignment -name FAMILY MAX7000AE
-set_global_assignment -name DEVICE "EPM7064AELC44-10"
-set_global_assignment -name TOP_LEVEL_ENTITY BaseStation
+set_global_assignment -name FAMILY "Cyclone III"
+set_global_assignment -name DEVICE EP3C5F256C6
+set_global_assignment -name TOP_LEVEL_ENTITY BaseStationBlock
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:43:02  AUGUST 08, 2016"
 set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
@@ -53,20 +53,6 @@ set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
-set_location_assignment PIN_43 -to clock
-set_location_assignment PIN_14 -to display_output[7]
-set_location_assignment PIN_4 -to display_output[6]
-set_location_assignment PIN_5 -to display_output[5]
-set_location_assignment PIN_6 -to display_output[4]
-set_location_assignment PIN_8 -to display_output[3]
-set_location_assignment PIN_9 -to display_output[2]
-set_location_assignment PIN_11 -to display_output[1]
-set_location_assignment PIN_12 -to display_output[0]
-set_location_assignment PIN_19 -to display_select[3]
-set_location_assignment PIN_18 -to display_select[2]
-set_location_assignment PIN_17 -to display_select[1]
-set_location_assignment PIN_16 -to display_select[0]
-set_location_assignment PIN_24 -to Rx
 set_global_assignment -name MAX7000_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
