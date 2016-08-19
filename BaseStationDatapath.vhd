@@ -23,8 +23,8 @@ entity BaseStationDatapath is
       desync               : in std_logic := '0';
 
       sample_5             : out std_logic := '0';
-      sample_8             : out std_logic := '0';
-      sample_12            : out std_logic := '0';
+      sample_7             : out std_logic := '0';
+      sample_13            : out std_logic := '0';
       sample_15            : out std_logic := '0';
       bit_9                : out std_logic := '0';
       vote_3               : out std_logic := '0';
@@ -116,7 +116,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  PacketValidator: process(bits, data_xor, sample_count)
+  PacketValidator: process(bits, data_xor, sample_count, packet_invalid)
   begin
     -- Default behavior
     packet_invalid <= '0';
@@ -147,13 +147,13 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  Comparator8: process(sample_count)
+  Comparator7: process(sample_count)
   begin
     -- Default behavior
-    sample_8 <= '0';
+    sample_7 <= '0';
     -- Conditional behavior
-    if (sample_count = "1000") then
-      sample_8 <= '1';
+    if (sample_count = "0111") then
+      sample_7 <= '1';
     end if;
   end process;
 
@@ -166,13 +166,13 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  Comparator12: process(sample_count)
+  Comparator13: process(sample_count)
   begin
     -- Default behavior
-    sample_12 <= '0';
+    sample_13 <= '0';
     -- Conditional behavior
-    if (sample_count = "1100") then
-      sample_12 <= '1';
+    if (sample_count = "1101") then
+      sample_13 <= '1';
     end if;
   end process;
 
