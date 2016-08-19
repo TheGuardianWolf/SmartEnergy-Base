@@ -201,7 +201,7 @@ architecture rtl of BaseStationFSM is
         -- In all cases, the sample count is incremented.
 				when start =>
 				-- state <= "001";
-				if (sample_7 = '1') then
+				if (sample_5 = '1') then
 					sample_increment <= '1';
 					vote_shift <= '1';
 					vote_increment <= '1';
