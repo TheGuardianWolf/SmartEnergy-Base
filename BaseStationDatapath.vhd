@@ -116,7 +116,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  Comparator0: process(bits, data_xor, sample_count)
+  PacketValidator: process(bits, data_xor, sample_count)
   begin
     -- Default behavior
     packet_invalid <= '0';
@@ -191,7 +191,7 @@ architecture rtl of BaseStationDatapath is
     majority_Rx <= majority_vote;
   end process;
 
-  ParityCheck: process(bits)
+  ParityGenerator: process(bits)
   begin
     data_xor <= xor_reduce(bits(7 downto 0));
   end process;
