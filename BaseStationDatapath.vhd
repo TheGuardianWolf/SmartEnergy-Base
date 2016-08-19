@@ -120,11 +120,10 @@ architecture rtl of BaseStationDatapath is
   begin
     -- Default behavior
     packet_invalid <= '0';
-    validation_error <= '0';
+    validation_error <= packet_invalid;
     -- Conditional behavior
     if (bits(9) = '0' or bits(8) = data_xor) then
       packet_invalid <= '1';
-      validation_error <= '1';
     end if;
   end process;
 
