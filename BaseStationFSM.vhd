@@ -201,8 +201,7 @@ architecture rtl of BaseStationFSM is
         -- In all cases, the sample count is incremented.
 				when start =>
 				-- state <= "001";
-					sample_increment <= '1';
-				end if;
+				sample_increment <= '1';
 
 				-- Start Voting state behavior
         -- The start vote state will decide whether the start bit is valid or
@@ -234,9 +233,7 @@ architecture rtl of BaseStationFSM is
         -- In all cases, the sample count is incremented.
 				when data =>
 				-- state <= "011";
-				if (sample_13 = '1') then
-					sample_increment <= '1';
-				end if;
+				sample_increment <= '1';
 
 				-- Data Voting state behavior
 				when data_vote =>
