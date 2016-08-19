@@ -116,7 +116,7 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  PacketValidator: process(bits, data_xor, sample_count)
+  PacketValidator: process(bits, data_xor, sample_count, packet_invalid)
   begin
     -- Default behavior
     packet_invalid <= '0';
