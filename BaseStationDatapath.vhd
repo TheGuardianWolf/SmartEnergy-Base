@@ -44,6 +44,7 @@ architecture rtl of BaseStationDatapath is
   signal packet_invalid      : std_logic := '0';
   signal desync_temp         : std_logic := '0';
   signal sync_temp           : std_logic := '0';
+  signal display_output_temp : std_logic_vector(7 downto 0) := (others => '0');
   signal display_select_temp : std_logic_vector(3 downto 0) := (others => '0');
   signal sample_count        : std_logic_vector(3 downto 0) := (others => '0');
   signal bits_count          : std_logic_vector(3 downto 0) := (others => '0');
@@ -269,15 +270,17 @@ architecture rtl of BaseStationDatapath is
   -- Buffer for the display as we don't always want to display what we have
   -- recieved in case of desync. If desync is detected by the buffer, then we
   -- display "-" on the enabled displays.
-	DisplayBuffer : process(clock, bits, display_update)
+	DisplayBuffer : process(clock, bits, display_update, display_output_temp)
 	begin
+    display_output_temp <= "00000000";
+    display_output <= display_output_temp;
     -- Conditional behavior
     if(rising_edge(clock)) then
       if (desync_temp = '1') then
         -- display_output <= "00000000";
-        display_output <= "00000001";
+        display_output_temp <= "00000001";
       elsif (display_update = '1') then
-        display_output <= bits(7 downto 0);
+        display_output_temp <= bits(7 downto 0);
       end if;
     end if;
   end process;
