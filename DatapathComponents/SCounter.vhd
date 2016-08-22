@@ -10,11 +10,12 @@ entity s_counter is
       sample_increment : in std_logic := '0';
       sample_reset     : in std_logic := '0';
 
-      sample_count     : out std_logic_vector(3 downto 0) := (others => '0')
+      sample_count     : buffer std_logic_vector(3 downto 0) := (others => '0')
     );
 end entity;
 
 architecture behavior of s_counter is
+begin
   -- Samples counter:
   -- Counter has limit at "1111" and a reset that can be triggered by FSM.
   SCounter: process(clock, sample_reset, sample_increment)

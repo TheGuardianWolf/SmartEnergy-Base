@@ -8,14 +8,14 @@ entity b_counter is
       clock          : in std_logic := '0';
 
       bits_increment : in std_logic := '0';
-      bits_shift     : in std_logic := '0';
       bits_reset     : in std_logic := '0';
 
-      bits_count     : out std_logic_vector(3 downto 0) := (others => '0')
+      bits_count     : buffer std_logic_vector(3 downto 0) := (others => '0')
     );
 end entity;
 
-architecture behavior of b_counter is
+architecture rtl of b_counter is
+begin
   -- Bit counter:
   -- Counter has limit at "1001" and a reset that can be triggered by FSM.
   BCounter: process(clock, bits_reset, bits_increment)
@@ -35,4 +35,4 @@ architecture behavior of b_counter is
       end if;
     end if;
   end process;
-end archtecture;
+end architecture;

@@ -11,6 +11,7 @@ entity auto_sync_delay is
 end entity;
 
 architecture behavior of auto_sync_delay is
+begin
   -- Trigger to stop the FSM delay when data validation fails.
   AutoSyncDelay: process(bits_count)
   begin

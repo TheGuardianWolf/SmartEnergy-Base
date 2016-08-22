@@ -11,11 +11,12 @@ entity v_counter is
       vote_shift     : in std_logic := '0';
       vote_reset     : in std_logic := '0';
 
-      vote_count     : out std_logic_vector(1 downto 0) := (others => '0')
+      vote_count     : buffer std_logic_vector(1 downto 0) := (others => '0')
     );
 end entity;
 
-architecture behavior of v_counter is
+architecture rtl of v_counter is
+begin
   -- Vote counter:
   -- Counter has limit at "11" and a reset that can be triggered by FSM.
   VCounter: process(clock, vote_reset, vote_increment)
@@ -35,4 +36,4 @@ architecture behavior of v_counter is
       end if;
     end if;
   end process;
-end archtecture;
+end architecture;

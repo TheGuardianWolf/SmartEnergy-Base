@@ -13,6 +13,7 @@ entity packet_validator is
 end entity;
 
 architecture behavior of packet_validator is
+begin
   -- Validates packets by comparing the odd parity generated from combinational
   -- circuit with the parity sent over UART, and compares the stop bit logic to
   -- a logic high signal. If either checks fail, the packet is invalid.
