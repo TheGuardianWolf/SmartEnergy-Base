@@ -272,7 +272,6 @@ architecture rtl of BaseStationDatapath is
   -- display "-" on the enabled displays.
 	DisplayBuffer : process(clock, bits, display_update, display_output_temp)
 	begin
-    display_output_temp <= "00000000";
     display_output <= display_output_temp;
     -- Conditional behavior
     if(rising_edge(clock)) then
@@ -291,7 +290,7 @@ architecture rtl of BaseStationDatapath is
   -- the first display. Each packet moves the pointer one to the left. When
   -- desync is detected, all displays are active to display the "-" character.
   DisplayShifter : process(clock, display_select_reset, display_select_temp, display_update)
-  -- With integrated dual comparators to detect when to shift in '1'
+  -- With integrated comparators to detect when to shift in '1'
   begin
     -- Default behavior
     display_select <= display_select_temp;
@@ -303,10 +302,10 @@ architecture rtl of BaseStationDatapath is
         display_select_temp <= "1111";
       else
         if (display_update = '1') then
-          if (display_select_temp = "0000" or display_select_temp = "1000") then
+          if (display_select_temp = "0000") then
             display_select_temp <= display_select_temp(2 downto 0) & '1';
           else
-            display_select_temp <= display_select_temp(2 downto 0) & '0';
+            display_select_temp <= display_select_temp(2 downto 0) & display_select_temp(3);
           end if;
         end if;
       end if;
