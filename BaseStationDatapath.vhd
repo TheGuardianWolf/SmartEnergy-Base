@@ -24,10 +24,10 @@ entity BaseStationDatapath is
 
       sample_5             : out std_logic := '0';
       sample_7             : out std_logic := '0';
-      sample_13            : out std_logic := '0';
+      sample_11            : out std_logic := '0';
       sample_15            : out std_logic := '0';
       bit_9                : out std_logic := '0';
-      vote_3               : out std_logic := '0';
+      vote_7               : out std_logic := '0';
       majority_Rx          : out std_logic := '1';
       sync                 : out std_logic := '0';
       validation_error     : out std_logic := '0';
@@ -48,8 +48,8 @@ architecture rtl of BaseStationDatapath is
   signal display_select_temp : std_logic_vector(3 downto 0) := (others => '0');
   signal sample_count        : std_logic_vector(3 downto 0) := (others => '0');
   signal bits_count          : std_logic_vector(3 downto 0) := (others => '0');
-  signal vote_count          : std_logic_vector(1 downto 0) := (others => '0');
-  signal votes               : std_logic_vector(2 downto 0) := (others => '1');
+  signal vote_count          : std_logic_vector(2 downto 0) := (others => '0');
+  signal votes               : std_logic_vector(6 downto 0) := (others => '1');
   signal bits                : std_logic_vector(9 downto 0) := (others => '0');
   begin
 
@@ -100,11 +100,11 @@ architecture rtl of BaseStationDatapath is
     -- Count with clock rising edge
     if(rising_edge(clock)) then
       if (vote_reset = '1') then
-        vote_count <= "00";
+        vote_count <= "000";
       else
         if (vote_increment = '1') then
-          if (vote_count = "11") then
-            vote_count <= "00";
+          if (vote_count = "111") then
+            vote_count <= "000";
           else
             vote_count <= vote_count + 1;
           end if;
@@ -138,17 +138,6 @@ architecture rtl of BaseStationDatapath is
     end if;
   end process;
 
-  -- General purpose comparator for decimal 3.
-  Comparator3: process(vote_count)
-  begin
-    -- Default behavior
-    vote_3 <= '0';
-    -- Conditional behavior
-    if (vote_count = "11") then
-      vote_3 <= '1';
-    end if;
-  end process;
-
   -- General purpose comparator for decimal 5.
   Comparator5: process(sample_count)
   begin
@@ -161,13 +150,17 @@ architecture rtl of BaseStationDatapath is
   end process;
 
   -- General purpose comparator for decimal 7.
-  Comparator7: process(sample_count)
+  Comparator7: process(sample_count, vote_count)
   begin
     -- Default behavior
     sample_7 <= '0';
+    vote_7 <= '0';
     -- Conditional behavior
     if (sample_count = "0111") then
       sample_7 <= '1';
+    end if;
+    if (vote_count = "111") then
+      vote_7 <= '1';
     end if;
   end process;
 
@@ -182,13 +175,13 @@ architecture rtl of BaseStationDatapath is
   end process;
 
   -- General purpose comparator for decimal 13.
-  Comparator13: process(sample_count)
+  Comparator11: process(sample_count)
   begin
     -- Default behavior
-    sample_13 <= '0';
+    sample_11 <= '0';
     -- Conditional behavior
-    if (sample_count = "1101") then
-      sample_13 <= '1';
+    if (sample_count = "1011") then
+      sample_11 <= '1';
     end if;
   end process;
 
@@ -206,7 +199,25 @@ architecture rtl of BaseStationDatapath is
   -- Majority vote combinational circuit to decide whether the bit is a 1 or 0.
   MajorityVote: process(votes, majority_vote)
   begin
-    majority_vote <= (votes(0) and votes(1)) or (votes(0) and votes(2)) or (votes(2) and votes(1));
+    -- majority_vote <= (votes(0) and votes(1)) or (votes(0) and votes(2)) or (votes(2) and votes(1));
+    majority_vote <= ( votes(3) and votes(4) and votes(5) and votes(6) ) or ( votes(2) and votes(4) and votes(5) and votes(6) ) or
+    ( votes(2) and votes(3) and votes(5) and votes(6) ) or ( votes(2) and votes(3) and votes(4) and votes(6) ) or
+    ( votes(2) and votes(3) and votes(4) and votes(5) ) or ( votes(1) and votes(4) and votes(5) and votes(6) ) or
+    ( votes(1) and votes(3) and votes(5) and votes(6) ) or ( votes(1) and votes(3) and votes(4) and votes(6) ) or
+    ( votes(1) and votes(3) and votes(4) and votes(5) ) or ( votes(1) and votes(2) and votes(5) and votes(6) ) or
+    ( votes(1) and votes(2) and votes(4) and votes(6) ) or ( votes(1) and votes(2) and votes(4) and votes(5) ) or
+    ( votes(1) and votes(2) and votes(3) and votes(6) ) or ( votes(1) and votes(2) and votes(3) and votes(5) ) or
+    ( votes(1) and votes(2) and votes(3) and votes(4) ) or ( votes(0) and votes(4) and votes(5) and votes(6) ) or
+    ( votes(0) and votes(3) and votes(5) and votes(6) ) or ( votes(0) and votes(3) and votes(4) and votes(6) ) or
+    ( votes(0) and votes(3) and votes(4) and votes(5) ) or ( votes(0) and votes(2) and votes(5) and votes(6) ) or
+    ( votes(0) and votes(2) and votes(4) and votes(6) ) or ( votes(0) and votes(2) and votes(4) and votes(5) ) or
+    ( votes(0) and votes(2) and votes(3) and votes(6) ) or ( votes(0) and votes(2) and votes(3) and votes(5) ) or
+    ( votes(0) and votes(2) and votes(3) and votes(4) ) or ( votes(0) and votes(1) and votes(5) and votes(6) ) or
+    ( votes(0) and votes(1) and votes(4) and votes(6) ) or ( votes(0) and votes(1) and votes(4) and votes(5) ) or
+    ( votes(0) and votes(1) and votes(3) and votes(6) ) or ( votes(0) and votes(1) and votes(3) and votes(5) ) or
+    ( votes(0) and votes(1) and votes(3) and votes(4) ) or ( votes(0) and votes(1) and votes(2) and votes(6) ) or
+    ( votes(0) and votes(1) and votes(2) and votes(5) ) or ( votes(0) and votes(1) and votes(2) and votes(4) ) or (
+     votes(0) and votes(1) and votes(2) and votes(3) );
     majority_Rx <= majority_vote;
   end process;
 
@@ -225,7 +236,7 @@ architecture rtl of BaseStationDatapath is
     sync_temp <= '0';
     sync <= sync_temp;
     -- Conditional behavior
-    if (bits(7 downto 0) = "00000000" and packet_invalid = '0') then
+    if (bits(7 downto 0) = "00010010" and packet_invalid = '0') then
       sync_temp <= '1';
     end if;
   end process;
@@ -235,7 +246,7 @@ architecture rtl of BaseStationDatapath is
   begin
     if(rising_edge(clock)) then
       if vote_shift = '1' then
-        votes <= Rx & votes(2 downto 1);
+        votes <= Rx & votes(6 downto 1);
       end if;
     end if;
   end process;

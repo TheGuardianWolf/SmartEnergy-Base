@@ -118,8 +118,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 96)
 		(input)
-		(text "sample_13" (rect 0 0 53 12)(font "Arial" ))
-		(text "sample_13" (rect 21 91 74 103)(font "Arial" ))
+		(text "sample_11" (rect 0 0 53 12)(font "Arial" ))
+		(text "sample_11" (rect 21 91 74 103)(font "Arial" ))
 		(line (pt 0 96)(pt 16 96))
 	)
 	(port
@@ -139,8 +139,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "vote_3" (rect 0 0 34 12)(font "Arial" ))
-		(text "vote_3" (rect 21 139 55 151)(font "Arial" ))
+		(text "vote_7" (rect 0 0 34 12)(font "Arial" ))
+		(text "vote_7" (rect 21 139 55 151)(font "Arial" ))
 		(line (pt 0 144)(pt 16 144))
 	)
 	(port
@@ -364,8 +364,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 64)
 		(output)
-		(text "sample_13" (rect 0 0 53 12)(font "Arial" ))
-		(text "sample_13" (rect 191 59 235 71)(font "Arial" ))
+		(text "sample_11" (rect 0 0 53 12)(font "Arial" ))
+		(text "sample_11" (rect 191 59 235 71)(font "Arial" ))
 		(line (pt 256 64)(pt 240 64))
 	)
 	(port
@@ -385,8 +385,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 112)
 		(output)
-		(text "vote_3" (rect 0 0 34 12)(font "Arial" ))
-		(text "vote_3" (rect 207 107 235 119)(font "Arial" ))
+		(text "vote_7" (rect 0 0 34 12)(font "Arial" ))
+		(text "vote_7" (rect 207 107 235 119)(font "Arial" ))
 		(line (pt 256 112)(pt 240 112))
 	)
 	(port

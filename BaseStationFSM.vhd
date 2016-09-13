@@ -13,10 +13,10 @@ entity BaseStationFSM is
 		Rx									 : in std_logic := '0';
 		sample_5						 : in std_logic := '0';
 		sample_7						 : in std_logic := '0';
-		sample_13						 : in std_logic := '0';
+		sample_11						 : in std_logic := '0';
 		sample_15						 : in std_logic := '0';
 		bit_9								 : in std_logic := '0';
-		vote_3							 : in std_logic := '0';
+		vote_7							 : in std_logic := '0';
 		majority_Rx					 : in std_logic := '1';
 		sync								 : in std_logic := '0';
 		validation_error		 : in std_logic := '0';
@@ -64,10 +64,10 @@ architecture rtl of BaseStationFSM is
 			Rx,
 			sample_5,
 			sample_7,
-			sample_13,
+			sample_11,
 			sample_15,
 			bit_9,
-			vote_3,
+			vote_7,
 			majority_Rx,
 			validation_error,
 			resync_delay
@@ -101,9 +101,9 @@ architecture rtl of BaseStationFSM is
         -- valid or a noise signal. If valid, state is passed to data. Otherwise
         -- state will return to idle.
 				when start_vote =>
-				if (vote_3 = '1' and majority_Rx = '0') then
+				if (vote_7 = '1' and majority_Rx = '0') then
 					NextState <= data;
-				elsif (vote_3 = '1') then
+				elsif (vote_7 = '1') then
 					NextState <= idle;
 				else
 					NextState <= start_vote;
@@ -113,7 +113,7 @@ architecture rtl of BaseStationFSM is
         -- The data state waits until the sample counter is at 12 before passing
         -- the state to data_vote. This state is purely for delay.
 				when data =>
-				if (sample_13 = '1') then
+				if (sample_11 = '1') then
 					NextState <= data_vote;
 				else
 					NextState <= data;
@@ -125,9 +125,9 @@ architecture rtl of BaseStationFSM is
         -- has been reached on the bit counter, then it will change to the
         -- validate state.
 				when data_vote =>
-				if (bit_9 = '1' and vote_3 = '1') then
+				if (bit_9 = '1' and vote_7 = '1') then
 					NextState <= validate;
-				elsif (vote_3 = '1') then
+				elsif (vote_7 = '1') then
 					NextState <= data;
 				else
 					NextState <= data_vote;
@@ -158,10 +158,10 @@ architecture rtl of BaseStationFSM is
 			Rx,
 			sample_5,
 			sample_7,
-			sample_13,
+			sample_11,
 			sample_15,
 			bit_9,
-			vote_3,
+			vote_7,
 			majority_Rx,
 			validation_error,
 			sync,
@@ -222,10 +222,10 @@ architecture rtl of BaseStationFSM is
 				if (sample_7 = '1') then
 					sample_reset <= '1';
 				end if;
-				if (vote_3 = '1' and majority_Rx = '0') then
+				if (vote_7 = '1' and majority_Rx = '0') then
 					vote_reset <= '1';
 					sample_increment <= '1';
-				elsif (vote_3 = '1') then
+				elsif (vote_7 = '1') then
 					desync <= '1';
 				else
 					vote_shift <= '1';
@@ -234,12 +234,12 @@ architecture rtl of BaseStationFSM is
 				end if;
 
 				-- Data state behavior:
-        -- This state doesn't do much until sample_13 is recieved. This signal
+        -- This state doesn't do much until sample_11 is recieved. This signal
         -- begins the voting process, as data will go to the data_vote state.
         -- In all cases, the sample count is incremented.
 				when data =>
 				-- state <= "011";
-				if (sample_13 = '1') then
+				if (sample_11 = '1') then
 					sample_increment <= '1';
 					vote_shift <= '1';
 					vote_increment <= '1';
@@ -253,11 +253,11 @@ architecture rtl of BaseStationFSM is
 				-- transition once all ten bits are accounted for.
 				when data_vote =>
 				-- state <= "100";
-				if (bit_9 = '1' and vote_3 = '1') then
+				if (bit_9 = '1' and vote_7 = '1') then
 					bits_shift <= '1';
 					sample_increment <= '1';
 					vote_reset <= '1';
-				elsif (vote_3 = '1') then
+				elsif (vote_7 = '1') then
 					bits_shift <= '1';
 					bits_increment <= '1';
 					sample_increment <= '1';
