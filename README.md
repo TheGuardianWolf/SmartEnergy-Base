@@ -1,16 +1,43 @@
 # SmartEnergy-Base
-Repository containing the VHDL code and other components required for the operation of the base station.
 
-# TODO
-- <s>Verify framing (Discard packets if stop is incorrect and wait for sync)
-http://electronics.stackexchange.com/questions/196553/detecting-start-bit-in-software-uart</s>
-- <s>Enable parity check (Discard packets if parity is incorrect and wait for sync)
-http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html</s>
-- <s>Enstate break response (Discard packets when no packets are recieved for 1s and wait for sync)
-https://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter#Break_condition</s>
-- <s>Create timedelay such that the device can automatically resync if desync detected.</s>
-- Re-implement false start behaviour such that it only wastes one (complete) bit, rather than a whole frame.
-- Testing... always testing...
+The base station recieves the wireless RX transmission from the SmartEnergy-Client and displays it on a 7 segment display.
 
-# Known Bugs
-- If display sync packet is not coded to be "000000000", it does not (visually) sync correctly.
+## Build
+
+Requires Quartus II 13.0 64-bit.
+
+Makefile included for a shortcut to building with CMake. Run 'make' in project folder.
+
+## Use
+
+Target device is EPM7064AELC44-10 MAX7000AE. 
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## Credits
+
+Authored by Jerry Fan in collaboration with John Cheng.
+
+## License
+
+SmartEnergy-Server, an API endpoint and database framework for the SmartEnergy device.
+Copyright (C) 2016 Jerry Fan, John Cheng
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
