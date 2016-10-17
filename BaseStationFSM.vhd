@@ -1,6 +1,5 @@
 -- Finite state machine design
 -- EE 209 - Group 10
--- Authored by Jerry Fan
 
 library ieee;
 use ieee.std_logic_1164.all;
